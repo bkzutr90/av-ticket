@@ -16,7 +16,7 @@ export default async function Home({ searchParams }) {
     <main className="welcome">
       <h1>Dasbor Tiket</h1>
       <p>
-        Lihat statistik, cari tiket lama, dan buka transcript untuk server yang kamu kelola.
+        Lihat statistik dan cari riwayat tiket untuk server yang kamu kelola.
         Hanya akun dengan izin Manage Server yang bisa masuk.
       </p>
       {error && <p className="notice err" role="alert">{ERRORS[error] || 'Terjadi kesalahan saat login.'}</p>}

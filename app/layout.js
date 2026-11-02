@@ -6,7 +6,7 @@ const body = Instrument_Sans({ subsets: ['latin'], variable: '--font-body', disp
 
 export const metadata = {
   title: 'Dasbor Tiket',
-  description: 'Statistik, riwayat tiket, dan transcript untuk server Discord kamu.',
+  description: 'Statistik dan riwayat tiket untuk server Discord kamu.',
 };
 
 export default function RootLayout({ children }) {

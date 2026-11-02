@@ -24,7 +24,6 @@ export default async function TicketDetail({ params }) {
   let answers = [];
   try { answers = JSON.parse(t.answers || '[]'); } catch { /* data lama/rusak */ }
 
-  const transcriptUrl = `/api/guilds/${guildId}/tickets/${t.number}/transcript`;
 
   return (
     <>
@@ -42,6 +41,7 @@ export default async function TicketDetail({ params }) {
         <div><dt>Respon pertama</dt><dd>{t.first_response_at ? fmtDuration(t.first_response_at - t.created_at) : '-'}</dd></div>
         <div><dt>Ditutup</dt><dd>{t.closed_at ? fmtDate(t.closed_at) : '-'}</dd></div>
         <div><dt>Ditutup oleh</dt><dd>{t.status === 'closed' ? closerLabel(t.closed_by, closerId && nameOf(names, closerId)) : '-'}</dd></div>
+        <div><dt>Alasan penutupan</dt><dd>{t.status === 'closed' ? t.close_reason || '-' : '-'}</dd></div>
       </dl>
 
       {t.rating && (
@@ -62,27 +62,6 @@ export default async function TicketDetail({ params }) {
           </dl>
         </section>
       )}
-
-      <section>
-        <div className="sechead">
-          <h2>Transcript</h2>
-          {t.has_transcript ? (
-            <span className="actions">
-              <a href={transcriptUrl} target="_blank" rel="noreferrer">Buka layar penuh</a>
-              <a href={`${transcriptUrl}?download=1`}>Unduh HTML</a>
-            </span>
-          ) : null}
-        </div>
-        {t.has_transcript ? (
-          <iframe className="transcript" src={transcriptUrl} sandbox="" title={`Transcript tiket ${pad(t.number)}`} />
-        ) : (
-          <p className="empty">
-            {t.status === 'open'
-              ? 'Transcript dibuat saat tiket ditutup.'
-              : 'Transcript tidak tersimpan di database (tiket ditutup sebelum Tahap 4 atau pembuatannya gagal). File HTML-nya masih ada di channel log Discord.'}
-          </p>
-        )}
-      </section>
     </>
   );
 }
